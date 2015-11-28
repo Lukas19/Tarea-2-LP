@@ -7,10 +7,12 @@ import java.awt.*;
 
 public class Main implements Context {
     Board board;
+    Piece piece;
 
     public Main() {
         // aquí puede inicializar valores y crear los objetos de juego.
         board = new Board();
+        piece = new Piece();
     }
 
     @Override
@@ -22,6 +24,8 @@ public class Main implements Context {
         Point point = mouseHandler.getMousePosition();
         if (point.x < 200 && point.y < 200)
             System.out.println(point);
+        piece.update(mouseHandler);
+
     }
 
     @Override
@@ -29,6 +33,7 @@ public class Main implements Context {
         // aquí, y solo aquí, puede dibujar cosas en la pantalla.
         // por ejemplo dibujar un círculo verde:
         board.draw(graphics);
+        piece.render(graphics);
     }
 
     public static void main(String[] args) {
