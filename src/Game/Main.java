@@ -12,6 +12,7 @@ public class Main implements Context {
     public Main() {
         // aquí puede inicializar valores y crear los objetos de juego.
         board = new Board();
+        Board.addCuadros();
         piece = new Piece();
     }
 
@@ -22,8 +23,10 @@ public class Main implements Context {
 
         // por ejemplo imprimir algo si el mouse está cerca de la esquina superior izquierda:
         Point point = mouseHandler.getMousePosition();
+        /*
         if (point.x < 200 && point.y < 200)
             System.out.println(point);
+        */
         piece.update(mouseHandler);
 
     }
