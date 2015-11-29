@@ -6,11 +6,16 @@ import lp.motor.MouseHandler;
 import java.awt.*;
 public class Piece implements Context{
     String own;
-    int x = 50;
-    int y = 50;
+    int x;
+    int y;
     int width = 50;
     int height = 50;
     boolean isSelected = false;
+
+    public Piece(int x,int y){
+        this.x = x;
+        this.y = y;
+    }
 
     public Point getCuadro(Point punto){
 
@@ -26,6 +31,16 @@ public class Piece implements Context{
             }
         }
         return null;
+    }
+
+    public void movePieza(Point punto){
+
+        Point pto;
+        pto = getCuadro(punto);
+
+        this.x = pto.x;
+        this.y = pto.y;
+
     }
 
     @Override

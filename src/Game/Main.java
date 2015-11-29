@@ -13,7 +13,9 @@ public class Main implements Context {
         // aquí puede inicializar valores y crear los objetos de juego.
         board = new Board();
         Board.addCuadros();
-        piece = new Piece();
+        piece = new Piece(50,50);
+        Point puntito = new Point(140,149);
+        piece.movePieza(puntito);
     }
 
     @Override
