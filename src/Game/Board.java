@@ -8,13 +8,22 @@ import java.util.ArrayList;
 
 public class Board {
 
-    private static ArrayList<Point> cuadros;
-    private ArrayList<Piece> equipo1;
-    private ArrayList<Piece> equipo2;
+    private static ArrayList<Point> cuadros = new ArrayList<Point>();
+    private static ArrayList<Piece> equipo1 = new ArrayList<Piece>();
+    private static ArrayList<Piece> equipo2 = new ArrayList<Piece>();
+
+
+    public static void addPieza(Piece pieza){
+
+        if (pieza.color == Color.BLACK){
+            equipo1.add(pieza);
+        }
+        else{
+            equipo2.add(pieza);
+        }
+    }
 
     public static void addCuadros(){
-
-        cuadros = new ArrayList<Point>();
 
         for (int i = 50; i <= (500); i += 50){
             for (int j = 50; j <= (500); j += 50){
@@ -27,27 +36,6 @@ public class Board {
 
     public static ArrayList<Point> getCuadros() {
         return cuadros;
-    }
-
-    /*public Point getCuadro(Point punto){
-
-        for (Point pto : cuadros){
-            for (int i = pto.x; i < (pto.x+50); i++){
-                for (int j = pto.y; j < (pto.y+50); j++){
-                    if (punto.x == i && punto.y == j){
-                        System.out.println("---> PUNTO  RECIBIDO: (" + punto.x + "," + punto.y + ")");
-                        System.out.println("---> CUADRO ASOCIADO: (" + pto.x + "," + pto.y + ")");
-                        return pto;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-    */
-
-    public void addPieza(){
-
     }
 
     public void draw(Graphics graphics) {
