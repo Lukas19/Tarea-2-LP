@@ -16,11 +16,11 @@ public class Main implements Context {
         pieza2 = new Piece(150,100,Color.BLACK);
         pieza3 = new Piece(50,500,Color.WHITE);
         pieza4 = new Piece(150,500,Color.WHITE);
-        Board.addCuadros();
-        Board.addPieza(pieza1);
-        Board.addPieza(pieza2);
-        Board.addPieza(pieza3);
-        Board.addPieza(pieza4);
+        Board.agregarCuadros();
+        Board.agregarPieza(pieza1);
+        Board.agregarPieza(pieza2);
+        Board.agregarPieza(pieza3);
+        Board.agregarPieza(pieza4);
     }
 
     @Override

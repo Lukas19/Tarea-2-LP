@@ -6,27 +6,28 @@ import lp.motor.MouseHandler;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Board {
+public class Board implements Context {
 
-    private static ArrayList<Point> cuadros = new ArrayList<Point>();
-    private static ArrayList<Piece> equipo1 = new ArrayList<Piece>();
-    private static ArrayList<Piece> equipo2 = new ArrayList<Piece>();
+    private static ArrayList<Point> cuadros = new ArrayList<>();
+    private static ArrayList<Piece> equipo1 = new ArrayList<>();
+    private static ArrayList<Piece> equipo2 = new ArrayList<>();
+
+    private Piece piezaSeleccionada;
 
 
-    public static void addPieza(Piece pieza){
+    public static void agregarPieza(Piece pieza) {
 
-        if (pieza.color == Color.BLACK){
+        if (pieza.color == Color.BLACK) {
             equipo1.add(pieza);
-        }
-        else{
+        } else {
             equipo2.add(pieza);
         }
     }
 
-    public static void addCuadros(){
+    public static void agregarCuadros() {
 
-        for (int i = 50; i <= (500); i += 50){
-            for (int j = 50; j <= (500); j += 50){
+        for (int i = 50; i <= (500); i += 50) {
+            for (int j = 50; j <= (500); j += 50) {
                 Point esquina = new Point(i,j);
                 cuadros.add(esquina);
             }
@@ -34,18 +35,21 @@ public class Board {
 
     }
 
-    public static ArrayList<Point> getCuadros() {
+    public static ArrayList<Point> obtenerCuadros() {
+
         return cuadros;
+
     }
 
     public void draw(Graphics graphics) {
+
         for (int i = 0; i < 500; i += 100) {
             for (int j = 0; j < 500; j += 100) {
                 graphics.setColor(Color.WHITE);
                 graphics.fillRect(50 + i, 50 + j, 50, 50);
             }
-
         }
+
         for (int i = 0; i < 500; i += 100) {
             for (int j = 0; j < 500; j += 100) {
                 graphics.setColor(Color.BLUE);
@@ -66,6 +70,16 @@ public class Board {
                 graphics.fillRect(50 + i, 100 + j, 50, 50);
             }
         }
+
+    }
+
+    @Override
+    public void update(MouseHandler mouseHandler) {
+
+    }
+
+    @Override
+    public void render(Graphics graphics) {
 
     }
 }
