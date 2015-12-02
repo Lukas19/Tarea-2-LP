@@ -14,8 +14,8 @@ public class Main implements Context {
         board = new Board();
         pieza1 = new Piece(100,50,Color.BLACK);
         pieza2 = new Piece(150,100,Color.BLACK);
-        pieza3 = new Piece(50,500,Color.WHITE);
-        pieza4 = new Piece(150,500,Color.WHITE);
+        pieza3 = new Piece(50,500,Color.GREEN);
+        pieza4 = new Piece(150,500,Color.GREEN);
         Board.agregarCuadros();
         Board.agregarPieza(pieza1);
         Board.agregarPieza(pieza2);

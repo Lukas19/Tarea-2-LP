@@ -38,12 +38,18 @@ public class Piece implements Context {
         if (isSelected) {
 
             Point pto;
+            System.out.println("El mouse esta en :" + punto);
             pto = obtenerCuadro(punto);
+            System.out.println("Me moveré a :" + pto);
 
-            this.x = pto.x;
-            this.y = pto.y;
+            if ((pto.x == this.x - 50 && pto.y == this.y + 50) || (pto.x == this.x + 50 && pto.y == this.y + 50) || (pto.x == this.x-50 && pto.y == this.y-50) || (pto.x == this.x+50 && pto.y == this.y-50) ) {
+
+                this.x = pto.x;
+                this.y = pto.y;
+
+            }
+
         }
-
     }
 
     @Override
@@ -52,12 +58,11 @@ public class Piece implements Context {
         pto = obtenerCuadro(point);
 
         if (mouseHandler.isButtonJustPressed()) {
-            if (pto.x == this.x && pto.y == this.y) {
+            if (pto.x == this.x && pto.y == this.y) { //Validamos que el usuario clickee sobre la pieza
                 this.isSelected = true;
             }
             mover(point);
         }
-
     }
 
     @Override
