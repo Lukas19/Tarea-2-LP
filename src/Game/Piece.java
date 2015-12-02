@@ -4,6 +4,8 @@ import lp.motor.Context;
 import lp.motor.MouseHandler;
 
 import java.awt.*;
+import java.util.ArrayList;
+
 public class Piece implements Context {
 
     int x;
@@ -11,12 +13,14 @@ public class Piece implements Context {
     int width = 50;
     int height = 50;
     boolean isSelected = false;
+    int equipo;
     Color color;
 
-    public Piece(int x,int y,Color color) {
+    public Piece(int x, int y, Color color, int equipo) {
         this.x = x;
         this.y = y;
         this.color = color;
+        this.equipo = equipo;
     }
 
     public Point obtenerCuadro(Point punto) {
@@ -37,18 +41,27 @@ public class Piece implements Context {
 
         if (isSelected) {
 
+            ArrayList<Piece> equipo1 = Board.getEquipo1();
             Point pto;
             System.out.println("El mouse esta en :" + punto);
             pto = obtenerCuadro(punto);
             System.out.println("Me moveré a :" + pto);
 
-            if ((pto.x == this.x - 50 && pto.y == this.y + 50) || (pto.x == this.x + 50 && pto.y == this.y + 50) || (pto.x == this.x-50 && pto.y == this.y-50) || (pto.x == this.x+50 && pto.y == this.y-50) ) {
+            if (this.equipo == 1) {
 
-                this.x = pto.x;
-                this.y = pto.y;
+                if ((pto.x == this.x - 50 && pto.y == this.y + 50) || (pto.x == this.x + 50 && pto.y == this.y + 50)) {
 
+                    this.x = pto.x;
+                    this.y = pto.y;
+                }
             }
+            else {
 
+                if ((pto.x == this.x - 50 && pto.y == this.y - 50) || (pto.x == this.x + 50 && pto.y == this.y - 50)) {
+                    this.x = pto.x;
+                    this.y = pto.y;
+                }
+            }
         }
     }
 

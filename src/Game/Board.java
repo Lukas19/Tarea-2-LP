@@ -17,7 +17,7 @@ public class Board implements Context {
 
     public static void agregarPieza(Piece pieza) {
 
-        if (pieza.color == Color.BLACK) {
+        if (pieza.equipo == 1) {
             equipo1.add(pieza);
         } else {
             equipo2.add(pieza);
@@ -39,6 +39,10 @@ public class Board implements Context {
 
         return cuadros;
 
+    }
+
+    public static ArrayList<Piece> getEquipo1() {
+        return equipo1;
     }
 
     public void draw(Graphics graphics) {

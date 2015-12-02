@@ -12,10 +12,10 @@ public class Main implements Context {
     public Main() {
         // aquí puede inicializar valores y crear los objetos de juego.
         board = new Board();
-        pieza1 = new Piece(100,50,Color.BLACK);
-        pieza2 = new Piece(150,100,Color.BLACK);
-        pieza3 = new Piece(50,500,Color.GREEN);
-        pieza4 = new Piece(150,500,Color.GREEN);
+        pieza1 = new Piece(100,50,Color.BLACK,1);
+        pieza2 = new Piece(150,100,Color.BLACK,1);
+        pieza3 = new Piece(50,500,Color.GREEN,2);
+        pieza4 = new Piece(150,500,Color.GREEN,2);
         Board.agregarCuadros();
         Board.agregarPieza(pieza1);
         Board.agregarPieza(pieza2);
