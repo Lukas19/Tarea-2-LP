@@ -8,23 +8,34 @@ import java.util.ArrayList;
 
 public class Board implements Context {
 
-    private static ArrayList<Point> cuadros = new ArrayList<>();
-    private static ArrayList<Piece> equipo1 = new ArrayList<>();
-    private static ArrayList<Piece> equipo2 = new ArrayList<>();
+    Point esquina = new Point(50,50);
+    private Color colorEquipo1;
+    private Color colorEquipo2;
+    private ArrayList<Point> cuadros = new ArrayList<>();
+    private ArrayList<Piece> equipo1 = new ArrayList<>();
+    private ArrayList<Piece> equipo2 = new ArrayList<>();
 
-    private Piece piezaSeleccionada;
+    private Piece piezaSeleccionada = null;
+    private int turno = 1;
 
 
-    public static void agregarPieza(Piece pieza) {
+    public Board(Color color1,Color color2) {
 
-        if (pieza.equipo == 1) {
+        colorEquipo1 = color1;
+        colorEquipo2 = color2;
+
+    }
+
+    public void agregarPieza(Piece pieza) {
+
+        if (pieza.getColor() == colorEquipo1) {
             equipo1.add(pieza);
         } else {
             equipo2.add(pieza);
         }
     }
 
-    public static void agregarCuadros() {
+    public void agregarCuadros() {
 
         for (int i = 50; i <= (500); i += 50) {
             for (int j = 50; j <= (500); j += 50) {
@@ -35,14 +46,39 @@ public class Board implements Context {
 
     }
 
-    public static ArrayList<Point> obtenerCuadros() {
+    public void verificarJugada(Point point) {
 
-        return cuadros;
+        Point pto = piezaSeleccionada.obtenerCuadro(this,point);
+
+        if (turno == 1) { //Turno del primer jugador
+
+            if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
+                    || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)) {
+                    //Jugada diagonal simple. sin comer.
+
+                piezaSeleccionada.mover(this,point);
+                turno = 2;
+
+            } else {} //Comer,mov de dama, etc.
+
+        } else {    //Turno del segundo jugador
+
+            if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() - 50)
+                    || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() - 50)) {
+
+                piezaSeleccionada.mover(this,point);
+                turno = 1;
+
+            } else {} //Comer,mov de dama, etc.
+
+        }
 
     }
 
-    public static ArrayList<Piece> getEquipo1() {
-        return equipo1;
+    public ArrayList<Point> getCuadros() {
+
+        return cuadros;
+
     }
 
     public void draw(Graphics graphics) {
@@ -80,10 +116,50 @@ public class Board implements Context {
     @Override
     public void update(MouseHandler mouseHandler) {
 
+        Point pto;
+        Point point = mouseHandler.getMousePosition();
+
+        if ( mouseHandler.isButtonJustPressed() ) {
+            if (piezaSeleccionada == null) {
+                if (turno == 1) {
+                    for (Piece pieza : equipo1) {
+                        if ( pieza.obtenerCuadro(this,point).x == pieza.getX() && pieza.obtenerCuadro(this,point).y == pieza.getY() ) {
+                            piezaSeleccionada = pieza;
+                        }
+                    }
+                } else {
+                    for (Piece pieza : equipo2) {
+                        if ( pieza.obtenerCuadro(this,point).x == pieza.getX() && pieza.obtenerCuadro(this,point).y == pieza.getY() ) {
+                            piezaSeleccionada = pieza;
+                        }
+                    }
+                }
+            } else {
+                pto = piezaSeleccionada.obtenerCuadro(this,point);
+                //piezaSeleccionada.mover(this,pto);
+                verificarJugada(pto);
+                piezaSeleccionada = null;
+                /*if (turno == 1) {
+                    turno = 2;
+                } else {
+                    turno = 1;
+                }*/
+            }
+        }
     }
 
     @Override
     public void render(Graphics graphics) {
+
+        for (Piece pieza : equipo1) {
+            graphics.setColor(pieza.getColor());
+            graphics.fillOval(pieza.getX(),pieza.getY(),pieza.getWidth(), pieza.getHeight() );
+        }
+
+        for (Piece pieza : equipo2) {
+            graphics.setColor(pieza.getColor());
+            graphics.fillOval(pieza.getX(),pieza.getY(),pieza.getWidth(), pieza.getHeight() );
+        }
 
     }
 }

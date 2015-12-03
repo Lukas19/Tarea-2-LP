@@ -4,28 +4,26 @@ import lp.motor.Context;
 import lp.motor.MouseHandler;
 
 import java.awt.*;
-import java.util.ArrayList;
+public class Piece {
 
-public class Piece implements Context {
+    private int x;
+    private int y;
+    private int width = 50;
+    private int height = 50;
+    private boolean esDama = false; //Implementar damas
+    private Color color;
 
-    int x;
-    int y;
-    int width = 50;
-    int height = 50;
-    boolean isSelected = false;
-    int equipo;
-    Color color;
+    public Piece(int x,int y,Color color) {
 
-    public Piece(int x, int y, Color color, int equipo) {
         this.x = x;
         this.y = y;
         this.color = color;
-        this.equipo = equipo;
+
     }
 
-    public Point obtenerCuadro(Point punto) {
+    public Point obtenerCuadro(Board board,Point punto) {
 
-        for (Point pto : Board.obtenerCuadros() ) {
+        for (Point pto : board.getCuadros() ) {
             for (int i = pto.x; i < (pto.x+50); i++) {
                 for (int j = pto.y; j < (pto.y+50); j++) {
                     if (punto.x == i && punto.y == j) {
@@ -34,54 +32,42 @@ public class Piece implements Context {
                 }
             }
         }
-        return null; //arreglar esto, tira error cuando cliqueas fuera del tablero.
+        return board.esquina; //click fuera del tablero = click en la esquina superior izquierda del tablero.
     }
 
-    public void mover(Point punto) {
+    public void mover(Board board,Point punto) {
 
-        if (isSelected) {
-
-            ArrayList<Piece> equipo1 = Board.getEquipo1();
-            Point pto;
-            System.out.println("El mouse esta en :" + punto);
-            pto = obtenerCuadro(punto);
-            System.out.println("Me moveré a :" + pto);
-
-            if (this.equipo == 1) {
-
-                if ((pto.x == this.x - 50 && pto.y == this.y + 50) || (pto.x == this.x + 50 && pto.y == this.y + 50)) {
-
-                    this.x = pto.x;
-                    this.y = pto.y;
-                }
-            }
-            else {
-
-                if ((pto.x == this.x - 50 && pto.y == this.y - 50) || (pto.x == this.x + 50 && pto.y == this.y - 50)) {
-                    this.x = pto.x;
-                    this.y = pto.y;
-                }
-            }
-        }
+        Point pto = obtenerCuadro(board,punto);
+        this.x = pto.x;
+        this.y = pto.y;
     }
 
-    @Override
-    public void update(MouseHandler mouseHandler) { //
-        Point pto,point = mouseHandler.getMousePosition();
-        pto = obtenerCuadro(point);
-
-        if (mouseHandler.isButtonJustPressed()) {
-            if (pto.x == this.x && pto.y == this.y) { //Validamos que el usuario clickee sobre la pieza
-                this.isSelected = true;
-            }
-            mover(point);
-        }
+    public int getX() {
+        return x;
     }
 
-    @Override
-    public void render(Graphics graphics) {
-        graphics.setColor(color);
-        graphics.fillOval(x,y,width, height);
+    public int getY() {
+        return y;
+    }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public int getWidth() {
+        return width;
+
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
