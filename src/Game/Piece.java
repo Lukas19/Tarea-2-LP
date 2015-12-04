@@ -42,6 +42,10 @@ public class Piece {
         this.y = pto.y;
     }
 
+    public boolean isEsDama() {
+        return esDama;
+    }
+
     public int getX() {
         return x;
     }
@@ -69,5 +73,9 @@ public class Piece {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void setEsDama(boolean esDama) {
+        this.esDama = esDama;
     }
 }

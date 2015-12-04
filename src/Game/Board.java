@@ -52,7 +52,23 @@ public class Board implements Context {
 
         if (turno == 1) { //Turno del primer jugador
 
-            if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
+            for (int i = 50 ;i <= 500; i += 50 ){
+                if (piezaSeleccionada.getX() == i && piezaSeleccionada.getY() == 500 ) piezaSeleccionada.setEsDama(true);
+            }
+
+            if(piezaSeleccionada.isEsDama()) {
+                if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
+                        || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)
+                        || (pto.x == piezaSeleccionada.getX() -50 && pto.y == piezaSeleccionada.getY() -50)
+                        || (pto.x == piezaSeleccionada.getX() +50 && pto.y == piezaSeleccionada.getY() -50) ) {
+
+                    piezaSeleccionada.mover(this,point);
+                    turno = 2;
+
+                }
+
+            }
+            else if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
                     || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)) {
                     //Jugada diagonal simple. sin comer.
 
@@ -63,7 +79,21 @@ public class Board implements Context {
 
         } else {    //Turno del segundo jugador
 
-            if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() - 50)
+            for (int i = 50 ;i <= 500; i += 50 ){
+                if (piezaSeleccionada.getX() == i && piezaSeleccionada.getY() == 50 ) piezaSeleccionada.setEsDama(true);
+            }
+
+            if (piezaSeleccionada.isEsDama()) {
+                if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
+                        || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)
+                        || (pto.x == piezaSeleccionada.getX() -50 && pto.y == piezaSeleccionada.getY() -50)
+                        || (pto.x == piezaSeleccionada.getX() +50 && pto.y == piezaSeleccionada.getY() -50) ) {
+
+                    piezaSeleccionada.mover(this,point);
+                    turno = 1;
+                }
+            }
+            else if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() - 50)
                     || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() - 50)) {
 
                 piezaSeleccionada.mover(this,point);
