@@ -52,11 +52,13 @@ public class Board implements Context {
 
         if (turno == 1) { //Turno del primer jugador
 
-            for (int i = 50 ;i <= 500; i += 50 ){
-                if (piezaSeleccionada.getX() == i && piezaSeleccionada.getY() == 500 ) piezaSeleccionada.setEsDama(true);
-            }
+            /*for (int i = 50 ;i <= 500; i += 50 ) {
+                if (piezaSeleccionada.getX() == i && piezaSeleccionada.getY() == 500 ) {
+                    piezaSeleccionada.setEsDama(true);
+                }
+            }*/
 
-            if(piezaSeleccionada.isEsDama()) {
+            if (piezaSeleccionada.esDama()) {
                 if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
                         || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)
                         || (pto.x == piezaSeleccionada.getX() -50 && pto.y == piezaSeleccionada.getY() -50)
@@ -67,23 +69,28 @@ public class Board implements Context {
 
                 }
 
-            }
-            else if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
+            } else if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
                     || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)) {
                     //Jugada diagonal simple. sin comer.
 
                 piezaSeleccionada.mover(this,point);
                 turno = 2;
 
+                if (piezaSeleccionada.getY() == 500 ) {
+                    piezaSeleccionada.hacerDama();
+                }
+
             } else {} //Comer,mov de dama, etc.
 
         } else {    //Turno del segundo jugador
 
-            for (int i = 50 ;i <= 500; i += 50 ){
-                if (piezaSeleccionada.getX() == i && piezaSeleccionada.getY() == 50 ) piezaSeleccionada.setEsDama(true);
-            }
+            /*for (int i = 50 ;i <= 500; i += 50 ) {
+                if (piezaSeleccionada.getX() == i && piezaSeleccionada.getY() == 50 ) {
+                    piezaSeleccionada.setEsDama(true);
+                }
+            }*/
 
-            if (piezaSeleccionada.isEsDama()) {
+            if (piezaSeleccionada.esDama()) {
                 if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
                         || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)
                         || (pto.x == piezaSeleccionada.getX() -50 && pto.y == piezaSeleccionada.getY() -50)
@@ -92,12 +99,15 @@ public class Board implements Context {
                     piezaSeleccionada.mover(this,point);
                     turno = 1;
                 }
-            }
-            else if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() - 50)
+            } else if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() - 50)
                     || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() - 50)) {
 
                 piezaSeleccionada.mover(this,point);
                 turno = 1;
+
+                if (piezaSeleccionada.getY() == 50 ) {
+                    piezaSeleccionada.hacerDama();
+                }
 
             } else {} //Comer,mov de dama, etc.
 
@@ -166,14 +176,8 @@ public class Board implements Context {
                 }
             } else {
                 pto = piezaSeleccionada.obtenerCuadro(this,point);
-                //piezaSeleccionada.mover(this,pto);
                 verificarJugada(pto);
                 piezaSeleccionada = null;
-                /*if (turno == 1) {
-                    turno = 2;
-                } else {
-                    turno = 1;
-                }*/
             }
         }
     }
