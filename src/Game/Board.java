@@ -50,66 +50,253 @@ public class Board implements Context {
 
         Point pto = piezaSeleccionada.obtenerCuadro(this,point);
 
+        for (Piece pieza : equipo1) {
+            if (pieza.getX() == pto.x && pieza.getY() == pto.y) {
+                return;
+            }
+        }
+
+        for (Piece pieza : equipo2) {
+            if (pieza.getX() == pto.x && pieza.getY() == pto.y) {
+                return;
+            }
+        }
+
         if (turno == 1) { //Turno del primer jugador
 
-            /*for (int i = 50 ;i <= 500; i += 50 ) {
-                if (piezaSeleccionada.getX() == i && piezaSeleccionada.getY() == 500 ) {
-                    piezaSeleccionada.setEsDama(true);
-                }
-            }*/
-
             if (piezaSeleccionada.esDama()) {
-                if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
-                        || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)
-                        || (pto.x == piezaSeleccionada.getX() -50 && pto.y == piezaSeleccionada.getY() -50)
-                        || (pto.x == piezaSeleccionada.getX() +50 && pto.y == piezaSeleccionada.getY() -50) ) {
 
-                    piezaSeleccionada.mover(this,point);
+                if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
+                    || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)
+                    || (pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() - 50)
+                    || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() - 50)) {
+
+                    piezaSeleccionada.mover(this, point);
                     turno = 2;
 
-                }
+                } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() - 100)) {
 
+                    for (Piece pieza : equipo2) {
+                        if (pieza.getX() == piezaSeleccionada.getX() - 50 && pieza.getY() == piezaSeleccionada.getY() - 50) {
+
+                            piezaSeleccionada.mover(this, point);
+                            equipo2.remove(pieza);
+                            turno = 2;
+                            break;
+
+                        }
+                    }
+                } else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() + 100)) {
+
+                    for (Piece pieza : equipo2) {
+                        if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+
+                            piezaSeleccionada.mover(this, point);
+                            equipo2.remove(pieza);
+                            turno = 2;
+
+                            if (piezaSeleccionada.getY() == 500 ) {
+                                piezaSeleccionada.hacerDama();
+                            }
+
+                            break;
+
+                        }
+                    }
+                } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() + 100)) {
+
+                    for (Piece pieza : equipo2) {
+                        if (pieza.getX() == piezaSeleccionada.getX() - 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+
+                            piezaSeleccionada.mover(this, point);
+                            equipo2.remove(pieza);
+                            turno = 2;
+
+                            if (piezaSeleccionada.getY() == 500 ) {
+                                piezaSeleccionada.hacerDama();
+                            }
+
+                            break;
+
+                        }
+                    }
+                } else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() - 100)) {
+
+                    for (Piece pieza : equipo2) {
+                        if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() - 50) {
+
+                            piezaSeleccionada.mover(this, point);
+                            equipo2.remove(pieza);
+                            turno = 2;
+                            break;
+
+                        }
+                    }
+                }
             } else if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
                     || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)) {
                     //Jugada diagonal simple. sin comer.
 
-                piezaSeleccionada.mover(this,point);
+                piezaSeleccionada.mover(this, point);
                 turno = 2;
 
                 if (piezaSeleccionada.getY() == 500 ) {
                     piezaSeleccionada.hacerDama();
                 }
 
-            } else {} //Comer,mov de dama, etc.
+            } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() + 100)) {
+
+                for (Piece pieza : equipo2) {
+                    if (pieza.getX() == piezaSeleccionada.getX() - 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+
+                        piezaSeleccionada.mover(this, point);
+                        equipo2.remove(pieza);
+                        turno = 2;
+
+                        if (piezaSeleccionada.getY() == 500 ) {
+                            piezaSeleccionada.hacerDama();
+                        }
+
+                        break;
+
+                    }
+                }
+
+            } else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() + 100)) {
+
+                for (Piece pieza : equipo2) {
+                    if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+
+                        piezaSeleccionada.mover(this, point);
+                        equipo2.remove(pieza);
+                        turno = 2;
+
+                        if (piezaSeleccionada.getY() == 500 ) {
+                            piezaSeleccionada.hacerDama();
+                        }
+
+                        break;
+
+                    }
+                }
+
+            }
 
         } else {    //Turno del segundo jugador
-
-            /*for (int i = 50 ;i <= 500; i += 50 ) {
-                if (piezaSeleccionada.getX() == i && piezaSeleccionada.getY() == 50 ) {
-                    piezaSeleccionada.setEsDama(true);
-                }
-            }*/
 
             if (piezaSeleccionada.esDama()) {
                 if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
                         || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)
                         || (pto.x == piezaSeleccionada.getX() -50 && pto.y == piezaSeleccionada.getY() -50)
-                        || (pto.x == piezaSeleccionada.getX() +50 && pto.y == piezaSeleccionada.getY() -50) ) {
+                        || (pto.x == piezaSeleccionada.getX() +50 && pto.y == piezaSeleccionada.getY() -50)) {
 
-                    piezaSeleccionada.mover(this,point);
+                    piezaSeleccionada.mover(this, point);
                     turno = 1;
+
+                } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() - 100)) {
+
+                    for (Piece pieza : equipo1) {
+                        if (pieza.getX() == piezaSeleccionada.getX() - 50 && pieza.getY() == piezaSeleccionada.getY() - 50) {
+
+                            piezaSeleccionada.mover(this, point);
+                            equipo1.remove(pieza);
+                            turno = 1;
+
+                            if (piezaSeleccionada.getY() == 50) {
+                                piezaSeleccionada.hacerDama();
+                            }
+
+                            break;
+
+                        }
+                    }
+                } else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() + 100)) {
+
+                    for (Piece pieza : equipo1) {
+                        if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+
+                            piezaSeleccionada.mover(this, point);
+                            equipo1.remove(pieza);
+                            turno = 1;
+                            break;
+
+                        }
+                    }
+                } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() + 100)) {
+
+                    for (Piece pieza : equipo1) {
+                        if (pieza.getX() == piezaSeleccionada.getX() - 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+
+                            piezaSeleccionada.mover(this, point);
+                            equipo1.remove(pieza);
+                            turno = 1;
+                            break;
+
+                        }
+                    }
+                } else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() - 100)) {
+
+                    for (Piece pieza : equipo1) {
+                        if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() - 50) {
+
+                            piezaSeleccionada.mover(this, point);
+                            equipo1.remove(pieza);
+                            turno = 1;
+
+                            if (piezaSeleccionada.getY() == 50) {
+                                piezaSeleccionada.hacerDama();
+                            }
+
+                            break;
+
+                        }
+                    }
                 }
             } else if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() - 50)
                     || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() - 50)) {
 
-                piezaSeleccionada.mover(this,point);
+                piezaSeleccionada.mover(this, point);
                 turno = 1;
 
-                if (piezaSeleccionada.getY() == 50 ) {
+                if (piezaSeleccionada.getY() == 50) {
                     piezaSeleccionada.hacerDama();
                 }
 
-            } else {} //Comer,mov de dama, etc.
+            } else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() - 100)) {
+
+                for (Piece pieza : equipo1) {
+                    if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() - 50) {
+
+                        piezaSeleccionada.mover(this, point);
+                        equipo1.remove(pieza);
+                        turno = 1;
+
+                        if (piezaSeleccionada.getY() == 50) {
+                            piezaSeleccionada.hacerDama();
+                        }
+
+                        break;
+
+                    }
+                }
+            } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() - 100)) {
+
+                for (Piece pieza : equipo1) {
+                    if (pieza.getX() == piezaSeleccionada.getX() - 50 && pieza.getY() == piezaSeleccionada.getY() - 50) {
+
+                        piezaSeleccionada.mover(this, point);
+                        equipo1.remove(pieza);
+                        turno = 1;
+
+                        if (piezaSeleccionada.getY() == 50) {
+                            piezaSeleccionada.hacerDama();
+                        }
+
+                        break;
+
+                    }
+                }
+            }
 
         }
 
@@ -159,17 +346,17 @@ public class Board implements Context {
         Point pto;
         Point point = mouseHandler.getMousePosition();
 
-        if ( mouseHandler.isButtonJustPressed() ) {
+        if (mouseHandler.isButtonJustPressed()) {
             if (piezaSeleccionada == null) {
                 if (turno == 1) {
                     for (Piece pieza : equipo1) {
-                        if ( pieza.obtenerCuadro(this,point).x == pieza.getX() && pieza.obtenerCuadro(this,point).y == pieza.getY() ) {
+                        if (pieza.obtenerCuadro(this,point).x == pieza.getX() && pieza.obtenerCuadro(this,point).y == pieza.getY()) {
                             piezaSeleccionada = pieza;
                         }
                     }
                 } else {
                     for (Piece pieza : equipo2) {
-                        if ( pieza.obtenerCuadro(this,point).x == pieza.getX() && pieza.obtenerCuadro(this,point).y == pieza.getY() ) {
+                        if (pieza.obtenerCuadro(this,point).x == pieza.getX() && pieza.obtenerCuadro(this,point).y == pieza.getY()) {
                             piezaSeleccionada = pieza;
                         }
                     }
@@ -187,12 +374,12 @@ public class Board implements Context {
 
         for (Piece pieza : equipo1) {
             graphics.setColor(pieza.getColor());
-            graphics.fillOval(pieza.getX(),pieza.getY(),pieza.getWidth(), pieza.getHeight() );
+            graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
         }
 
         for (Piece pieza : equipo2) {
             graphics.setColor(pieza.getColor());
-            graphics.fillOval(pieza.getX(),pieza.getY(),pieza.getWidth(), pieza.getHeight() );
+            graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
         }
 
     }

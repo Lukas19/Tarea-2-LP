@@ -10,7 +10,7 @@ public class Piece {
     private int y;
     private int width = 50;
     private int height = 50;
-    private boolean esDama = false; //Implementar damas
+    private boolean esDama = false;
     private Color color;
 
     public Piece(int x,int y,Color color) {
@@ -23,7 +23,7 @@ public class Piece {
 
     public Point obtenerCuadro(Board board,Point punto) {
 
-        for (Point pto : board.getCuadros() ) {
+        for (Point pto : board.getCuadros()) {
             for (int i = pto.x; i < (pto.x+50); i++) {
                 for (int j = pto.y; j < (pto.y+50); j++) {
                     if (punto.x == i && punto.y == j) {
