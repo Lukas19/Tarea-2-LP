@@ -373,14 +373,32 @@ public class Board implements Context {
     public void render(Graphics graphics) {
 
         for (Piece pieza : equipo1) {
-            graphics.setColor(pieza.getColor());
-            graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
+            if (pieza.esDama()) {
+                graphics.setColor(pieza.getColor());
+                graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
+                graphics.setColor(Color.white);
+                graphics.fillOval(pieza.getX()+12, pieza.getY()+12, 25, 25);
+            }
+
+            else {
+                graphics.setColor(pieza.getColor());
+                graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
+
+            }
         }
 
         for (Piece pieza : equipo2) {
-            graphics.setColor(pieza.getColor());
-            graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
-        }
+            if (pieza.esDama()) {
+                graphics.setColor(pieza.getColor());
+                graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
+                graphics.setColor(Color.white);
+                graphics.fillOval(pieza.getX()+12, pieza.getY()+12, 25, 25);
+            }
 
+            else {
+                graphics.setColor(pieza.getColor());
+                graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
+            }
+        }
     }
 }
