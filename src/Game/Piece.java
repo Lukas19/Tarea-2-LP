@@ -78,4 +78,6 @@ public class Piece {
     public void hacerDama() {
         this.esDama = true;
     }
+
+    public void yaNoEsDama() {this.esDama = false;}
 }
