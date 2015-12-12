@@ -13,9 +13,9 @@ public class Main implements Context {
     Piece pieza2;
     Piece pieza3;
     Piece pieza4;
-    Piece powerUpsReina;
-    Piece powerUpsObliga;
-    Piece powerUpsTransforma;
+    PowerUps powerUpsReina;
+    PowerUps powerUpsObliga;
+    PowerUps powerUpsTransforma;
     Color colorEquipo1 = Color.BLACK;
     Color colorEquipo2 = Color.GREEN;
     Board board = new Board(colorEquipo1, colorEquipo2);
@@ -28,9 +28,9 @@ public class Main implements Context {
         pieza2 = new Piece(250,100,colorEquipo1);
         pieza3 = new Piece(50,500,colorEquipo2);
         pieza4 = new Piece(150,500,colorEquipo2);
-        powerUpsReina = new Piece(200,250,Color.YELLOW);
-        powerUpsObliga = new Piece (300,250,Color.YELLOW);
-        powerUpsTransforma = new Piece(400,250,Color.YELLOW);
+        powerUpsReina = new PowerUps(200,250,Color.YELLOW,"Reina");
+        powerUpsObliga = new PowerUps(300,250,Color.YELLOW,"Obliga");
+        powerUpsTransforma = new PowerUps(400,250,Color.YELLOW,"Transforma");
         board.agregarCuadros();
         board.agregarPieza(pieza1);
         board.agregarPieza(pieza2);
