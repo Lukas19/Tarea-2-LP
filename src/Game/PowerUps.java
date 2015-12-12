@@ -2,18 +2,19 @@ package Game;
 
 
 import lp.motor.Context;
+import lp.motor.Element;
 import lp.motor.MouseHandler;
 
 import java.awt.*;
 
-public class PowerUps extends Piece implements Context{
+public class PowerUps extends Piece implements Context {
 
     private String tipo;
 
-    public PowerUps(int x, int y, Color color, String tipo){
-        super(x,y,color);
-        this.tipo = tipo;
+    public PowerUps(int x, int y, String tipo) {
 
+        super(x,y, Element.Type.FIRE);
+        this.tipo = tipo;
     }
 
 

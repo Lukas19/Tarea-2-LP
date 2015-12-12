@@ -1,8 +1,9 @@
 package Game;
 
-import com.sun.prism.paint.*;
+//import com.sun.prism.paint.*;
 import lp.motor.Application;
 import lp.motor.Context;
+import lp.motor.Element;
 import lp.motor.MouseHandler;
 import java.awt.*;
 import java.awt.Color;
@@ -18,27 +19,27 @@ public class Main implements Context {
     PowerUps powerUpsTransforma;
     Color colorEquipo1 = Color.BLACK;
     Color colorEquipo2 = Color.GREEN;
-    Board board = new Board(colorEquipo1, colorEquipo2);
+    Board board = new Board();
 
     public Main() {
 
         // aquí puede inicializar valores y crear los objetos de juego.
 
-        pieza1 = new Piece(100,50,colorEquipo1);
-        pieza2 = new Piece(250,100,colorEquipo1);
-        pieza3 = new Piece(50,500,colorEquipo2);
-        pieza4 = new Piece(150,500,colorEquipo2);
-        powerUpsReina = new PowerUps(200,250,Color.YELLOW,"Reina");
-        powerUpsObliga = new PowerUps(300,250,Color.YELLOW,"Obliga");
-        powerUpsTransforma = new PowerUps(400,250,Color.YELLOW,"Transforma");
+        pieza1 = new Piece(100,50, Element.Type.FIRE);
+        pieza2 = new Piece(250,100, Element.Type.WATER);
+        pieza3 = new Piece(50,500, Element.Type.FIRE);
+        pieza4 = new Piece(150,500, Element.Type.LEAF);
+        powerUpsReina = new PowerUps(200,250,"Reina");
+        powerUpsObliga = new PowerUps(300,250,"Obliga");
+        powerUpsTransforma = new PowerUps(400,250,"Transforma");
         board.agregarCuadros();
-        board.agregarPieza(pieza1);
-        board.agregarPieza(pieza2);
-        board.agregarPieza(pieza3);
-        board.agregarPieza(pieza4);
-        board.agregarPieza(powerUpsReina);
-        board.agregarPieza(powerUpsObliga);
-        board.agregarPieza(powerUpsTransforma);
+        board.agregarPieza(pieza1,1);
+        board.agregarPieza(pieza2,1);
+        board.agregarPieza(pieza3,2);
+        board.agregarPieza(pieza4,2);
+        board.agregarPieza(powerUpsReina,3);
+        board.agregarPieza(powerUpsObliga,3);
+        board.agregarPieza(powerUpsTransforma,3);
 
     }
 

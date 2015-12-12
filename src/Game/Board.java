@@ -1,6 +1,7 @@
 package Game;
 
 import lp.motor.Context;
+import lp.motor.Element;
 import lp.motor.MouseHandler;
 
 import java.awt.*;
@@ -9,8 +10,6 @@ import java.util.ArrayList;
 public class Board implements Context {
 
     Point esquina = new Point(50,50);
-    private Color colorEquipo1;
-    private Color colorEquipo2;
     private ArrayList<Point> cuadros = new ArrayList<>();
     private ArrayList<Piece> equipo1 = new ArrayList<>();
     private ArrayList<Piece> equipo2 = new ArrayList<>();
@@ -19,25 +18,13 @@ public class Board implements Context {
     private Piece piezaSeleccionada = null;
     private int turno = 1;
 
+    public void agregarPieza(Piece pieza, int equipo) {
 
-    public Board(Color color1,Color color2) {
-
-        colorEquipo1 = color1;
-        colorEquipo2 = color2;
-
-    }
-
-    public void agregarPieza(Piece pieza) {
-
-        if (pieza.getColor() == colorEquipo1) {
+        if (equipo == 1) {
             equipo1.add(pieza);
-        }
-
-        else if (pieza.getColor() == colorEquipo2) {
+        } else if (equipo == 2) {
             equipo2.add(pieza);
-        }
-
-        else{
+        } else {
             powerUps.add(pieza);
         }
 
@@ -85,17 +72,27 @@ public class Board implements Context {
                 } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() - 100)) {
 
                     for (Piece pieza : equipo2) {
-                        if (pieza.getX() == piezaSeleccionada.getX() - 50 && pieza.getY() == piezaSeleccionada.getY() - 50) {
+                        if (pieza.getX() == piezaSeleccionada.getX() - 50
+                            && pieza.getY() == piezaSeleccionada.getY() - 50) {
 
-                            piezaSeleccionada.mover(this, point);
-                            equipo2.remove(pieza);
-                            turno = 2;
-                            break;
+                            if ((piezaSeleccionada.getElement() == Element.Type.FIRE
+                                && pieza.getElement() != Element.Type.WATER)
+                                || (piezaSeleccionada.getElement() == Element.Type.WATER
+                                && pieza.getElement() != Element.Type.LEAF)
+                                || (piezaSeleccionada.getElement() == Element.Type.LEAF
+                                && pieza.getElement() != Element.Type.FIRE)) {
 
+                                piezaSeleccionada.mover(this, point);
+                                equipo2.remove(pieza);
+                                turno = 2;
+                                break;
+                            }
                         }
                     }
                     for (Piece pieza : powerUps) {
-                        if (pieza.getX() == piezaSeleccionada.getX() - 50 && pieza.getY() == piezaSeleccionada.getY() - 50) {
+                        if (pieza.getX() == piezaSeleccionada.getX() - 50
+                            && pieza.getY() == piezaSeleccionada.getY() - 50) {
+
                             if (pieza.getX() == 200 && pieza.getY() == 250){
                                 piezaSeleccionada.hacerDama();
                             }
@@ -111,22 +108,35 @@ public class Board implements Context {
                 else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() + 100)) {
 
                     for (Piece pieza : equipo2) {
-                        if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+                        if (pieza.getX() == piezaSeleccionada.getX() + 50
+                            && pieza.getY() == piezaSeleccionada.getY() + 50) {
 
-                            piezaSeleccionada.mover(this, point);
-                            equipo2.remove(pieza);
-                            turno = 2;
+                            if ((piezaSeleccionada.getElement() == Element.Type.FIRE
+                                && pieza.getElement() != Element.Type.WATER)
+                                || (piezaSeleccionada.getElement() == Element.Type.WATER
+                                && pieza.getElement() != Element.Type.LEAF)
+                                || (piezaSeleccionada.getElement() == Element.Type.LEAF
+                                && pieza.getElement() != Element.Type.FIRE)) {
 
-                            if (piezaSeleccionada.getY() == 500 ) {
-                                piezaSeleccionada.hacerDama();
+                                piezaSeleccionada.mover(this, point);
+                                equipo2.remove(pieza);
+                                turno = 2;
+
+                                if (piezaSeleccionada.getY() == 500 ) {
+                                    piezaSeleccionada.hacerDama();
+                                }
+
+                                break;
+
                             }
 
-                            break;
 
                         }
                     }
                     for (Piece pieza : powerUps) {
-                        if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+                        if (pieza.getX() == piezaSeleccionada.getX() + 50
+                            && pieza.getY() == piezaSeleccionada.getY() + 50) {
+
                             if (pieza.getX() == 200 && pieza.getY() == 250){
                                 piezaSeleccionada.hacerDama();
                             }
@@ -140,23 +150,34 @@ public class Board implements Context {
                 else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() + 100)) {
 
                     for (Piece pieza : equipo2) {
-                        if (pieza.getX() == piezaSeleccionada.getX() - 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+                        if (pieza.getX() == piezaSeleccionada.getX() - 50
+                            && pieza.getY() == piezaSeleccionada.getY() + 50) {
 
-                            piezaSeleccionada.mover(this, point);
-                            equipo2.remove(pieza);
-                            turno = 2;
+                            if ((piezaSeleccionada.getElement() == Element.Type.FIRE
+                                && pieza.getElement() != Element.Type.WATER)
+                                || (piezaSeleccionada.getElement() == Element.Type.WATER
+                                && pieza.getElement() != Element.Type.LEAF)
+                                || (piezaSeleccionada.getElement() == Element.Type.LEAF
+                                && pieza.getElement() != Element.Type.FIRE)) {
 
-                            if (piezaSeleccionada.getY() == 500 ) {
-                                piezaSeleccionada.hacerDama();
+                                piezaSeleccionada.mover(this, point);
+                                equipo2.remove(pieza);
+                                turno = 2;
+
+                                if (piezaSeleccionada.getY() == 500) {
+                                    piezaSeleccionada.hacerDama();
+                                }
+
+                                break;
                             }
-
-                            break;
 
                         }
                     }
 
                     for (Piece pieza : powerUps) {
-                        if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+                        if (pieza.getX() == piezaSeleccionada.getX() + 50
+                            && pieza.getY() == piezaSeleccionada.getY() + 50) {
+
                             if (pieza.getX() == 200 && pieza.getY() == 250){
                                 piezaSeleccionada.hacerDama();
                             }
@@ -167,21 +188,33 @@ public class Board implements Context {
                         }
                     }
 
-                } else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() - 100)) {
+                } else if ((pto.x == piezaSeleccionada.getX() + 100
+                    && pto.y == piezaSeleccionada.getY() - 100)) {
 
                     for (Piece pieza : equipo2) {
-                        if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() - 50) {
+                        if (pieza.getX() == piezaSeleccionada.getX() + 50
+                            && pieza.getY() == piezaSeleccionada.getY() - 50) {
 
-                            piezaSeleccionada.mover(this, point);
-                            equipo2.remove(pieza);
-                            turno = 2;
-                            break;
+                            if ((piezaSeleccionada.getElement() == Element.Type.FIRE
+                                && pieza.getElement() != Element.Type.WATER)
+                                || (piezaSeleccionada.getElement() == Element.Type.WATER
+                                && pieza.getElement() != Element.Type.LEAF)
+                                || (piezaSeleccionada.getElement() == Element.Type.LEAF
+                                && pieza.getElement() != Element.Type.FIRE)) {
+
+                                piezaSeleccionada.mover(this, point);
+                                equipo2.remove(pieza);
+                                turno = 2;
+                                break;
+                            }
 
                         }
                     }
 
                     for (Piece pieza : powerUps) {
-                        if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() - 50) {
+                        if (pieza.getX() == piezaSeleccionada.getX() + 50
+                            && pieza.getY() == piezaSeleccionada.getY() - 50) {
+
                             if (pieza.getX() == 200 && pieza.getY() == 250){
                                 piezaSeleccionada.hacerDama();
                             }
@@ -193,8 +226,8 @@ public class Board implements Context {
                     }
                 }
             } else if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
-                    || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)) {
-                    //Jugada diagonal simple. sin comer.
+                || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)) {
+                //Jugada diagonal simple. sin comer.
 
                 piezaSeleccionada.mover(this, point);
                 turno = 2;
@@ -206,23 +239,34 @@ public class Board implements Context {
             } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() + 100)) {
 
                 for (Piece pieza : equipo2) {
-                    if (pieza.getX() == piezaSeleccionada.getX() - 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+                    if (pieza.getX() == piezaSeleccionada.getX() - 50
+                        && pieza.getY() == piezaSeleccionada.getY() + 50) {
 
-                        piezaSeleccionada.mover(this, point);
-                        equipo2.remove(pieza);
-                        turno = 2;
+                        if ((piezaSeleccionada.getElement() == Element.Type.FIRE
+                            && pieza.getElement() != Element.Type.WATER)
+                            || (piezaSeleccionada.getElement() == Element.Type.WATER
+                            && pieza.getElement() != Element.Type.LEAF)
+                            || (piezaSeleccionada.getElement() == Element.Type.LEAF
+                            && pieza.getElement() != Element.Type.FIRE)) {
 
-                        if (piezaSeleccionada.getY() == 500 ) {
-                            piezaSeleccionada.hacerDama();
+                            piezaSeleccionada.mover(this, point);
+                            equipo2.remove(pieza);
+                            turno = 2;
+
+                            if (piezaSeleccionada.getY() == 500) {
+                                piezaSeleccionada.hacerDama();
+                            }
+
+                            break;
                         }
-
-                        break;
 
                     }
                 }
 
                 for (Piece pieza : powerUps) {
-                    if (pieza.getX() == piezaSeleccionada.getX() - 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+                    if (pieza.getX() == piezaSeleccionada.getX() - 50
+                        && pieza.getY() == piezaSeleccionada.getY() + 50) {
+
                         if (pieza.getX() == 200 && pieza.getY() == 250){
                             piezaSeleccionada.hacerDama();
                         }
@@ -237,23 +281,34 @@ public class Board implements Context {
             } else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() + 100)) {
 
                 for (Piece pieza : equipo2) {
-                    if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+                    if (pieza.getX() == piezaSeleccionada.getX() + 50
+                        && pieza.getY() == piezaSeleccionada.getY() + 50) {
 
-                        piezaSeleccionada.mover(this, point);
-                        equipo2.remove(pieza);
-                        turno = 2;
+                        if ((piezaSeleccionada.getElement() == Element.Type.FIRE
+                            && pieza.getElement() != Element.Type.WATER)
+                            || (piezaSeleccionada.getElement() == Element.Type.WATER
+                            && pieza.getElement() != Element.Type.LEAF)
+                            || (piezaSeleccionada.getElement() == Element.Type.LEAF
+                            && pieza.getElement() != Element.Type.FIRE)) {
 
-                        if (piezaSeleccionada.getY() == 500 ) {
-                            piezaSeleccionada.hacerDama();
+                            piezaSeleccionada.mover(this, point);
+                            equipo2.remove(pieza);
+                            turno = 2;
+
+                            if (piezaSeleccionada.getY() == 500) {
+                                piezaSeleccionada.hacerDama();
+                            }
+
+                            break;
                         }
-
-                        break;
 
                     }
                 }
 
                 for (Piece pieza : powerUps) {
-                    if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+                    if (pieza.getX() == piezaSeleccionada.getX() + 50
+                        && pieza.getY() == piezaSeleccionada.getY() + 50) {
+
                         if (pieza.getX() == 200 && pieza.getY() == 250){
                             piezaSeleccionada.hacerDama();
                             System.out.println("Soy una dama ");
@@ -283,9 +338,9 @@ public class Board implements Context {
 
             if (piezaSeleccionada.esDama()) {
                 if ((pto.x == piezaSeleccionada.getX() - 50 && pto.y == piezaSeleccionada.getY() + 50)
-                        || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)
-                        || (pto.x == piezaSeleccionada.getX() -50 && pto.y == piezaSeleccionada.getY() -50)
-                        || (pto.x == piezaSeleccionada.getX() +50 && pto.y == piezaSeleccionada.getY() -50)) {
+                    || (pto.x == piezaSeleccionada.getX() + 50 && pto.y == piezaSeleccionada.getY() + 50)
+                    || (pto.x == piezaSeleccionada.getX() -50 && pto.y == piezaSeleccionada.getY() -50)
+                    || (pto.x == piezaSeleccionada.getX() +50 && pto.y == piezaSeleccionada.getY() -50)) {
 
                     piezaSeleccionada.mover(this, point);
                     turno = 1;
@@ -293,58 +348,94 @@ public class Board implements Context {
                 } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() - 100)) {
 
                     for (Piece pieza : equipo1) {
-                        if (pieza.getX() == piezaSeleccionada.getX() - 50 && pieza.getY() == piezaSeleccionada.getY() - 50) {
+                        if (pieza.getX() == piezaSeleccionada.getX() - 50
+                            && pieza.getY() == piezaSeleccionada.getY() - 50) {
 
-                            piezaSeleccionada.mover(this, point);
-                            equipo1.remove(pieza);
-                            turno = 1;
+                            if ((piezaSeleccionada.getElement() == Element.Type.FIRE
+                                && pieza.getElement() != Element.Type.WATER)
+                                || (piezaSeleccionada.getElement() == Element.Type.WATER
+                                && pieza.getElement() != Element.Type.LEAF)
+                                || (piezaSeleccionada.getElement() == Element.Type.LEAF
+                                && pieza.getElement() != Element.Type.FIRE)) {
 
-                            if (piezaSeleccionada.getY() == 50) {
-                                piezaSeleccionada.hacerDama();
+                                piezaSeleccionada.mover(this, point);
+                                equipo1.remove(pieza);
+                                turno = 1;
+
+                                if (piezaSeleccionada.getY() == 50) {
+                                    piezaSeleccionada.hacerDama();
+                                }
+
+                                break;
                             }
-
-                            break;
 
                         }
                     }
                 } else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() + 100)) {
 
                     for (Piece pieza : equipo1) {
-                        if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+                        if (pieza.getX() == piezaSeleccionada.getX() + 50
+                            && pieza.getY() == piezaSeleccionada.getY() + 50) {
 
-                            piezaSeleccionada.mover(this, point);
-                            equipo1.remove(pieza);
-                            turno = 1;
-                            break;
+                            if ((piezaSeleccionada.getElement() == Element.Type.FIRE
+                                && pieza.getElement() != Element.Type.WATER)
+                                || (piezaSeleccionada.getElement() == Element.Type.WATER
+                                && pieza.getElement() != Element.Type.LEAF)
+                                || (piezaSeleccionada.getElement() == Element.Type.LEAF
+                                && pieza.getElement() != Element.Type.FIRE)) {
+
+                                piezaSeleccionada.mover(this, point);
+                                equipo1.remove(pieza);
+                                turno = 1;
+                                break;
+                            }
 
                         }
                     }
                 } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() + 100)) {
 
                     for (Piece pieza : equipo1) {
-                        if (pieza.getX() == piezaSeleccionada.getX() - 50 && pieza.getY() == piezaSeleccionada.getY() + 50) {
+                        if (pieza.getX() == piezaSeleccionada.getX() - 50
+                            && pieza.getY() == piezaSeleccionada.getY() + 50) {
 
-                            piezaSeleccionada.mover(this, point);
-                            equipo1.remove(pieza);
-                            turno = 1;
-                            break;
+                            if ((piezaSeleccionada.getElement() == Element.Type.FIRE
+                                && pieza.getElement() != Element.Type.WATER)
+                                || (piezaSeleccionada.getElement() == Element.Type.WATER
+                                && pieza.getElement() != Element.Type.LEAF)
+                                || (piezaSeleccionada.getElement() == Element.Type.LEAF
+                                && pieza.getElement() != Element.Type.FIRE)) {
+
+                                piezaSeleccionada.mover(this, point);
+                                equipo1.remove(pieza);
+                                turno = 1;
+                                break;
+                            }
 
                         }
                     }
                 } else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() - 100)) {
 
                     for (Piece pieza : equipo1) {
-                        if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() - 50) {
+                        if (pieza.getX() == piezaSeleccionada.getX() + 50
+                            && pieza.getY() == piezaSeleccionada.getY() - 50) {
 
-                            piezaSeleccionada.mover(this, point);
-                            equipo1.remove(pieza);
-                            turno = 1;
+                            if ((piezaSeleccionada.getElement() == Element.Type.FIRE
+                                && pieza.getElement() != Element.Type.WATER)
+                                || (piezaSeleccionada.getElement() == Element.Type.WATER
+                                && pieza.getElement() != Element.Type.LEAF)
+                                || (piezaSeleccionada.getElement() == Element.Type.LEAF
+                                && pieza.getElement() != Element.Type.FIRE)) {
 
-                            if (piezaSeleccionada.getY() == 50) {
-                                piezaSeleccionada.hacerDama();
+                                piezaSeleccionada.mover(this, point);
+                                equipo1.remove(pieza);
+                                turno = 1;
+
+                                if (piezaSeleccionada.getY() == 50) {
+                                    piezaSeleccionada.hacerDama();
+                                }
+
+                                break;
                             }
-
-                            break;
 
                         }
                     }
@@ -362,34 +453,52 @@ public class Board implements Context {
             } else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() - 100)) {
 
                 for (Piece pieza : equipo1) {
-                    if (pieza.getX() == piezaSeleccionada.getX() + 50 && pieza.getY() == piezaSeleccionada.getY() - 50) {
+                    if (pieza.getX() == piezaSeleccionada.getX() + 50
+                        && pieza.getY() == piezaSeleccionada.getY() - 50) {
 
-                        piezaSeleccionada.mover(this, point);
-                        equipo1.remove(pieza);
-                        turno = 1;
+                        if ((piezaSeleccionada.getElement() == Element.Type.FIRE
+                            && pieza.getElement() != Element.Type.WATER)
+                            || (piezaSeleccionada.getElement() == Element.Type.WATER
+                            && pieza.getElement() != Element.Type.LEAF)
+                            || (piezaSeleccionada.getElement() == Element.Type.LEAF
+                            && pieza.getElement() != Element.Type.FIRE)) {
 
-                        if (piezaSeleccionada.getY() == 50) {
-                            piezaSeleccionada.hacerDama();
+                            piezaSeleccionada.mover(this, point);
+                            equipo1.remove(pieza);
+                            turno = 1;
+
+                            if (piezaSeleccionada.getY() == 50) {
+                                piezaSeleccionada.hacerDama();
+                            }
+
+                            break;
                         }
-
-                        break;
 
                     }
                 }
             } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() - 100)) {
 
                 for (Piece pieza : equipo1) {
-                    if (pieza.getX() == piezaSeleccionada.getX() - 50 && pieza.getY() == piezaSeleccionada.getY() - 50) {
+                    if (pieza.getX() == piezaSeleccionada.getX() - 50
+                        && pieza.getY() == piezaSeleccionada.getY() - 50) {
 
-                        piezaSeleccionada.mover(this, point);
-                        equipo1.remove(pieza);
-                        turno = 1;
+                        if ((piezaSeleccionada.getElement() == Element.Type.FIRE
+                            && pieza.getElement() != Element.Type.WATER)
+                            || (piezaSeleccionada.getElement() == Element.Type.WATER
+                            && pieza.getElement() != Element.Type.LEAF)
+                            || (piezaSeleccionada.getElement() == Element.Type.LEAF
+                            && pieza.getElement() != Element.Type.FIRE)) {
 
-                        if (piezaSeleccionada.getY() == 50) {
-                            piezaSeleccionada.hacerDama();
+                            piezaSeleccionada.mover(this, point);
+                            equipo1.remove(pieza);
+                            turno = 1;
+
+                            if (piezaSeleccionada.getY() == 50) {
+                                piezaSeleccionada.hacerDama();
+                            }
+
+                            break;
                         }
-
-                        break;
 
                     }
                 }
@@ -447,13 +556,17 @@ public class Board implements Context {
             if (piezaSeleccionada == null) {
                 if (turno == 1) {
                     for (Piece pieza : equipo1) {
-                        if (pieza.obtenerCuadro(this,point).x == pieza.getX() && pieza.obtenerCuadro(this,point).y == pieza.getY()) {
+                        if (pieza.obtenerCuadro(this,point).x == pieza.getX()
+                            && pieza.obtenerCuadro(this,point).y == pieza.getY()) {
+
                             piezaSeleccionada = pieza;
                         }
                     }
                 } else {
                     for (Piece pieza : equipo2) {
-                        if (pieza.obtenerCuadro(this,point).x == pieza.getX() && pieza.obtenerCuadro(this,point).y == pieza.getY()) {
+                        if (pieza.obtenerCuadro(this,point).x == pieza.getX()
+                            && pieza.obtenerCuadro(this,point).y == pieza.getY()) {
+
                             piezaSeleccionada = pieza;
                         }
                     }
@@ -470,36 +583,45 @@ public class Board implements Context {
     public void render(Graphics graphics) {
 
         for (Piece pieza : equipo1) {
-            if (pieza.esDama()) {
-                graphics.setColor(pieza.getColor());
+
+            if (pieza.getElement() == Element.Type.FIRE) {
+                graphics.setColor(Color.RED);
                 graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
-                graphics.setColor(Color.white);
-                graphics.fillOval(pieza.getX()+12, pieza.getY()+12, 25, 25);
+            } else if (pieza.getElement() == Element.Type.WATER) {
+                graphics.setColor(Color.CYAN);
+                graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
+            } else {
+                graphics.setColor(Color.GREEN);
+                graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
             }
 
-            else {
-                graphics.setColor(pieza.getColor());
-                graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
-
+            if (pieza.esDama()) {
+                graphics.setColor(Color.white);
+                graphics.fillOval(pieza.getX()+12, pieza.getY()+12, 25, 25);
             }
         }
 
         for (Piece pieza : equipo2) {
-            if (pieza.esDama()) {
-                graphics.setColor(pieza.getColor());
+
+            if (pieza.getElement() == Element.Type.FIRE) {
+                graphics.setColor(Color.red);
                 graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
-                graphics.setColor(Color.white);
-                graphics.fillOval(pieza.getX()+12, pieza.getY()+12, 25, 25);
+            } else if (pieza.getElement() == Element.Type.WATER) {
+                graphics.setColor(Color.cyan);
+                graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
+            } else {
+                graphics.setColor(Color.green);
+                graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
             }
 
-            else {
-                graphics.setColor(pieza.getColor());
-                graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
+            if (pieza.esDama()) {
+                graphics.setColor(Color.black);
+                graphics.fillOval(pieza.getX()+12, pieza.getY()+12, 25, 25);
             }
         }
 
         for (Piece pieza : powerUps){
-            graphics.setColor(pieza.getColor());
+            graphics.setColor(Color.YELLOW);
             graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
         }
 

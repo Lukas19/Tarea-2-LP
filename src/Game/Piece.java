@@ -1,6 +1,7 @@
 package Game;
 
 import lp.motor.Context;
+import lp.motor.Element;
 import lp.motor.MouseHandler;
 
 import java.awt.*;
@@ -11,14 +12,13 @@ public class Piece {
     private int width = 50;
     private int height = 50;
     private boolean esDama = false;
-    private Color color;
+    private Element.Type elemento;
 
-    public Piece(int x,int y,Color color) {
+    public Piece(int x,int y,Element.Type elemento) {
 
         this.x = x;
         this.y = y;
-        this.color = color;
-
+        this.elemento = elemento;
     }
 
     public Point obtenerCuadro(Board board,Point punto) {
@@ -54,8 +54,8 @@ public class Piece {
         return y;
     }
 
-    public Color getColor() {
-        return color;
+    public Element.Type getElement() {
+        return elemento;
     }
 
     public int getWidth() {
@@ -79,5 +79,7 @@ public class Piece {
         this.esDama = true;
     }
 
-    public void yaNoEsDama() {this.esDama = false;}
+    public void yaNoEsDama() {
+        this.esDama = false;
+    }
 }
