@@ -577,7 +577,7 @@ public class Board implements Context {
 
         for (int i = 0; i < 500; i += 100) {
             for (int j = 0; j < 500; j += 100) {
-                graphics.setColor(Color.BLUE);
+                graphics.setColor(Color.BLACK);
                 graphics.fillRect(100 + i, 50 + j, 50, 50);
             }
         }
@@ -591,7 +591,7 @@ public class Board implements Context {
 
         for (int i = 0; i < 500; i += 100) {
             for (int j = 0; j < 500; j += 100) {
-                graphics.setColor(Color.BLUE);
+                graphics.setColor(Color.BLACK);
                 graphics.fillRect(50 + i, 100 + j, 50, 50);
             }
         }
@@ -704,7 +704,7 @@ public class Board implements Context {
                 graphics.setColor(Color.RED);
                 graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
             } else if (pieza.getElement() == Element.Type.WATER) {
-                graphics.setColor(Color.CYAN);
+                graphics.setColor(Color.BLUE);
                 graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
             } else {
                 graphics.setColor(Color.GREEN);
@@ -712,7 +712,7 @@ public class Board implements Context {
             }
 
             if (pieza.esDama()) {
-                graphics.setColor(Color.white);
+                graphics.setColor(Color.WHITE);
                 graphics.fillOval(pieza.getX()+12, pieza.getY()+12, 25, 25);
             }
         }
@@ -720,18 +720,18 @@ public class Board implements Context {
         for (Piece pieza : equipo2) {
 
             if (pieza.getElement() == Element.Type.FIRE) {
-                graphics.setColor(Color.red);
+                graphics.setColor(Color.orange);
                 graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
             } else if (pieza.getElement() == Element.Type.WATER) {
                 graphics.setColor(Color.cyan);
                 graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
             } else {
-                graphics.setColor(Color.green);
+                graphics.setColor(Color.lightGray);
                 graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
             }
 
             if (pieza.esDama()) {
-                graphics.setColor(Color.black);
+                graphics.setColor(Color.white);
                 graphics.fillOval(pieza.getX()+12, pieza.getY()+12, 25, 25);
             }
         }
