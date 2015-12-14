@@ -13,9 +13,10 @@ public class Board implements Context {
     private ArrayList<Point> cuadros = new ArrayList<>();
     private ArrayList<Piece> equipo1 = new ArrayList<>();
     private ArrayList<Piece> equipo2 = new ArrayList<>();
-    private ArrayList<Piece> powerUps = new ArrayList<>();
+    private ArrayList<PowerUps> powerUps = new ArrayList<>();
 
     private Piece piezaSeleccionada = null;
+    private PowerUps powerUpSeleccionado = null;
     private int turno = 1;
 
     public void agregarPieza(Piece pieza, int equipo) {
@@ -104,8 +105,7 @@ public class Board implements Context {
 
                         }
                     }
-                }
-                else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() + 100)) {
+                } else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() + 100)) {
 
                     for (Piece pieza : equipo2) {
                         if (pieza.getX() == piezaSeleccionada.getX() + 50
@@ -133,6 +133,7 @@ public class Board implements Context {
 
                         }
                     }
+
                     for (Piece pieza : powerUps) {
                         if (pieza.getX() == piezaSeleccionada.getX() + 50
                             && pieza.getY() == piezaSeleccionada.getY() + 50) {
@@ -146,8 +147,7 @@ public class Board implements Context {
                             turno = 2;
                         }
                     }
-                }
-                else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() + 100)) {
+                } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() + 100)) {
 
                     for (Piece pieza : equipo2) {
                         if (pieza.getX() == piezaSeleccionada.getX() - 50
@@ -236,6 +236,19 @@ public class Board implements Context {
                     piezaSeleccionada.hacerDama();
                 }
 
+
+            }
+            if (piezaSeleccionada.isSuperAvance()) {
+                if ((pto.x == piezaSeleccionada.getX() -150 && pto.y ==piezaSeleccionada.getY() +150) ||
+                    (pto.x == piezaSeleccionada.getX() +150 && pto.y == piezaSeleccionada.getY() +150)) {
+
+                    piezaSeleccionada.mover(this, point);
+                    piezaSeleccionada.setSuperAvance(false);
+                    turno = 2;
+                    if (piezaSeleccionada.getY() == 500) {
+                        piezaSeleccionada.hacerDama();
+                    }
+                }
             } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() + 100)) {
 
                 for (Piece pieza : equipo2) {
@@ -263,18 +276,34 @@ public class Board implements Context {
                     }
                 }
 
-                for (Piece pieza : powerUps) {
-                    if (pieza.getX() == piezaSeleccionada.getX() - 50
-                        && pieza.getY() == piezaSeleccionada.getY() + 50) {
+                for (PowerUps power : powerUps) {
+                    if (power.getX() == piezaSeleccionada.getX() - 50
+                            && power.getY() == piezaSeleccionada.getY() + 50) {
 
-                        if (pieza.getX() == 200 && pieza.getY() == 250){
+                        if (power.getTipo() == "Reina") {
+                            powerUpSeleccionado = power;
                             piezaSeleccionada.hacerDama();
+                            System.out.println("Soy una dama ");
+
+                        } else if (power.getTipo() == "Obliga") { //PowerUps Obliga
+                            System.out.println("Elige la pieza que deseas que tu oponente mueva: ");
+                            System.out.println("Jugador 2 mueve: ");
+                            powerUpSeleccionado = power;
+                        } else if (power.getTipo() == "Transforma" ) {
+                            System.out.println("Selecciona la pieza que deseas transformar: ");
+                            powerUpSeleccionado = power;
+                            //turno = 2;
+                        } else if (power.getTipo() == "Avanza") {
+                            System.out.println("Esta pieza se moverá de tres espacios");
+                            powerUpSeleccionado = power;
+                            piezaSeleccionada.setSuperAvance(true);
                         }
 
                         piezaSeleccionada.mover(this, point);
-                        powerUps.remove(pieza);
+                        powerUps.remove(power);
                         turno = 2;
                         break;
+
                     }
                 }
 
@@ -305,32 +334,37 @@ public class Board implements Context {
                     }
                 }
 
-                for (Piece pieza : powerUps) {
-                    if (pieza.getX() == piezaSeleccionada.getX() + 50
-                        && pieza.getY() == piezaSeleccionada.getY() + 50) {
+                for (PowerUps power : powerUps) {
+                    if (power.getX() == piezaSeleccionada.getX() + 50
+                            && power.getY() == piezaSeleccionada.getY() + 50) {
 
-                        if (pieza.getX() == 200 && pieza.getY() == 250){
+                        if (power.getTipo() == "Reina") {
+                            powerUpSeleccionado = power;
                             piezaSeleccionada.hacerDama();
                             System.out.println("Soy una dama ");
-                        } //Comparar posicion para saber que PowerUps es en este caso TRANSFORMA EN REINA
 
-                        else if (pieza.getX() == 300 && pieza.getY() == 250){ //PowerUps Obliga
-                            turno = 2;
+                        } else if (power.getTipo() == "Obliga") { //PowerUps Obliga
+                            System.out.println("Elige la pieza que deseas que tu oponente mueva: ");
                             System.out.println("Jugador 2 mueve: ");
-                        }
-
-                        else if (pieza.getX() == 400 && pieza.getY() == 250){
+                            powerUpSeleccionado = power;
+                        } else if (power.getTipo() == "Transforma" ) {
                             System.out.println("Selecciona la pieza que deseas transformar: ");
-
+                            powerUpSeleccionado = power;
+                            turno = 2;
+                        } else if (power.getTipo() == "Avanza") {
+                            System.out.println("Esta pieza se moverá de tres espacios");
+                            powerUpSeleccionado = power;
+                            piezaSeleccionada.setSuperAvance(true);
                         }
 
                         piezaSeleccionada.mover(this, point);
-                        powerUps.remove(pieza);
-                        //turno = 2;
+                        powerUps.remove(power);
+                        turno = 2;
                         break;
 
                     }
                 }
+
 
             }
 
@@ -450,6 +484,17 @@ public class Board implements Context {
                     piezaSeleccionada.hacerDama();
                 }
 
+            }
+            if(piezaSeleccionada.isSuperAvance()) {
+                if ((pto.x == piezaSeleccionada.getX() - 150 && pto.y == piezaSeleccionada.getY() - 150) ||
+                        (pto.x == piezaSeleccionada.getX() + 150 && pto.y == piezaSeleccionada.getY() - 150)) {
+                    piezaSeleccionada.mover(this, point);
+                    piezaSeleccionada.setSuperAvance(false);
+                    turno = 1;
+                    if (piezaSeleccionada.getY() == 50) {
+                        piezaSeleccionada.hacerDama();
+                    }
+                }
             } else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() - 100)) {
 
                 for (Piece pieza : equipo1) {
@@ -476,6 +521,38 @@ public class Board implements Context {
 
                     }
                 }
+                for (PowerUps power : powerUps) {
+                    if (power.getX() == piezaSeleccionada.getX() + 50
+                            && power.getY() == piezaSeleccionada.getY() - 50) {
+
+                        if (power.getTipo() == "Reina") {
+                            powerUpSeleccionado = power;
+                            piezaSeleccionada.hacerDama();
+                            System.out.println("Soy una dama ");
+
+                            //Comparar posicion para saber que PowerUps es en este caso TRANSFORMA EN REINA
+
+                        } else if (power.getTipo() == "Obliga") { //PowerUps Obliga
+                            System.out.println("Elige la pieza que deseas que tu oponente mueva: ");
+                            System.out.println("Jugador 2 mueve: ");
+                            powerUpSeleccionado = power;
+                        } else if (power.getTipo() == "Transforma" ) {
+                            System.out.println("Selecciona la pieza que deseas transformar: ");
+                            powerUpSeleccionado = power;
+                            piezaSeleccionada.setTeam1(true);
+                            turno = 1;
+                        } else if (power.getTipo() == "Avanza") {
+                            System.out.println("Esta pieza se moverá de tres espacios");
+                            powerUpSeleccionado = power;
+                            piezaSeleccionada.setSuperAvance(true);
+                        }
+
+                        piezaSeleccionada.mover(this, point);
+                        powerUps.remove(power);
+                        turno = 1;
+                        break;
+                    }
+                }
             } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() - 100)) {
 
                 for (Piece pieza : equipo1) {
@@ -500,6 +577,35 @@ public class Board implements Context {
                             break;
                         }
 
+                    }
+                }
+                for (PowerUps power : powerUps) {
+                    if (power.getX() == piezaSeleccionada.getX() - 50
+                            && power.getY() == piezaSeleccionada.getY() - 50) {
+
+                        if (power.getTipo() == "Reina"){
+                            powerUpSeleccionado = power;
+                            piezaSeleccionada.hacerDama();
+                            System.out.println("Soy una dama ");
+
+                        } else if (power.getTipo() == "Obliga") { //PowerUps Obliga
+                            System.out.println("Elige la pieza que deseas que tu oponente mueva: ");
+                            System.out.println("Jugador 2 mueve: ");
+                            powerUpSeleccionado = power;
+                        } else if (power.getTipo() == "Transforma" ) {
+                            System.out.println("Selecciona la pieza que deseas transformar: ");
+                            powerUpSeleccionado = power;
+                            turno = 1;
+                        } else if (power.getTipo() == "Avanza") {
+                            System.out.println("Esta pieza se moverá de tres espacios");
+                            powerUpSeleccionado = power;
+                            piezaSeleccionada.setSuperAvance(true);
+                        }
+
+                        piezaSeleccionada.mover(this, point);
+                        powerUps.remove(power);
+                        turno = 1;
+                        break;
                     }
                 }
             }
@@ -547,17 +653,20 @@ public class Board implements Context {
     }
 
     @Override
-    public void update(MouseHandler mouseHandler) {
+    public void update(MouseHandler mouseHandler ) {
 
         Point pto;
+        Point actual = null;
         Point point = mouseHandler.getMousePosition();
+        boolean loco = true;
 
-        if (mouseHandler.isButtonJustPressed()) {
+
+        if (mouseHandler.isButtonJustPressed() &&  powerUpSeleccionado == null) {
             if (piezaSeleccionada == null) {
                 if (turno == 1) {
                     for (Piece pieza : equipo1) {
                         if (pieza.obtenerCuadro(this,point).x == pieza.getX()
-                            && pieza.obtenerCuadro(this,point).y == pieza.getY()) {
+                                && pieza.obtenerCuadro(this,point).y == pieza.getY()) {
 
                             piezaSeleccionada = pieza;
                         }
@@ -565,7 +674,7 @@ public class Board implements Context {
                 } else {
                     for (Piece pieza : equipo2) {
                         if (pieza.obtenerCuadro(this,point).x == pieza.getX()
-                            && pieza.obtenerCuadro(this,point).y == pieza.getY()) {
+                                && pieza.obtenerCuadro(this,point).y == pieza.getY()) {
 
                             piezaSeleccionada = pieza;
                         }
@@ -574,9 +683,70 @@ public class Board implements Context {
             } else {
                 pto = piezaSeleccionada.obtenerCuadro(this,point);
                 verificarJugada(pto);
+                //if(piezaSeleccionada.isPowerDama()){
+                //  piezaSeleccionada.yaNoEsDama();
+                //  piezaSeleccionada.setPowerDama(false);
+                //}
                 piezaSeleccionada = null;
+
+            }
+        } else if (powerUpSeleccionado != null ) {
+            if (piezaSeleccionada == null) {
+                if (powerUpSeleccionado.getTipo() == "Transformar" || powerUpSeleccionado.getTipo() == "Obligar") {
+                    for (Piece pieza : equipo1) {
+                        if (pieza.obtenerCuadro(this, point).x == pieza.getX()
+                                && pieza.obtenerCuadro(this, point).y == pieza.getY()) {
+
+                            piezaSeleccionada = pieza;
+                        }
+                    }
+                }   for (Piece pieza : equipo2) {
+                    if (pieza.obtenerCuadro(this, point).x == pieza.getX()
+                            && pieza.obtenerCuadro(this, point).y == pieza.getY()) {
+
+                        piezaSeleccionada = pieza;
+                    }
+                }
+
+            } else {
+                if(powerUpSeleccionado.getTipo() == "Transforma") {
+                    if(piezaSeleccionada.isTeam1()) {
+                        System.out.println(piezaSeleccionada.getColor());
+                        piezaSeleccionada.setColor(Color.GREEN);
+                        piezaSeleccionada.setTeam1(false);
+                        equipo2.add(piezaSeleccionada);
+                        equipo1.remove(piezaSeleccionada);
+                        pto = piezaSeleccionada.obtenerCuadro(this, point);
+                        verificarJugada(pto);
+                    } else if(equipo2.contains(piezaSeleccionada)) {
+                        piezaSeleccionada.setColor(Color.BLACK);
+                        equipo1.add(piezaSeleccionada);
+                        equipo2.remove(piezaSeleccionada);
+                        pto = piezaSeleccionada.obtenerCuadro(this, point);
+                        verificarJugada(pto);
+                    }
+                } else if(powerUpSeleccionado.getTipo() == "Obliga") {
+                    piezaSeleccionada.setColor(Color.ORANGE);
+                    pto = piezaSeleccionada.obtenerCuadro(this,point);
+                    while(loco) {
+                        if (pto.x != piezaSeleccionada.getX()) {
+                            loco = false;
+                            pto = piezaSeleccionada.obtenerCuadro(this, point);
+                            verificarJugada(pto);
+                        }
+                    }
+                } else if(powerUpSeleccionado.getTipo() == "Reina") {
+                    if(piezaSeleccionada.esDama()) {
+                        System.out.println("ESTOY AQUI");
+                        pto = piezaSeleccionada.obtenerCuadro(this, point);
+                        verificarJugada(pto);
+                    }
+                }
+                piezaSeleccionada = null;
+                powerUpSeleccionado = null;
             }
         }
+        //System.out.println("Dejame entrar!");
     }
 
     @Override
