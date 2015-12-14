@@ -25,10 +25,12 @@ public class Board implements Context {
             equipo1.add(pieza);
         } else if (equipo == 2) {
             equipo2.add(pieza);
-        } else {
-            powerUps.add(pieza);
         }
 
+    }
+
+    public void agregarPower(PowerUps power){
+        powerUps.add(power);
     }
 
     public void agregarCuadros() {
@@ -74,35 +76,20 @@ public class Board implements Context {
 
                     for (Piece pieza : equipo2) {
                         if (pieza.getX() == piezaSeleccionada.getX() - 50
-                            && pieza.getY() == piezaSeleccionada.getY() - 50) {
+                                && pieza.getY() == piezaSeleccionada.getY() - 50) {
 
                             if ((piezaSeleccionada.getElement() == Element.Type.FIRE
-                                && pieza.getElement() != Element.Type.WATER)
-                                || (piezaSeleccionada.getElement() == Element.Type.WATER
-                                && pieza.getElement() != Element.Type.LEAF)
-                                || (piezaSeleccionada.getElement() == Element.Type.LEAF
-                                && pieza.getElement() != Element.Type.FIRE)) {
+                                    && pieza.getElement() != Element.Type.WATER)
+                                    || (piezaSeleccionada.getElement() == Element.Type.WATER
+                                    && pieza.getElement() != Element.Type.LEAF)
+                                    || (piezaSeleccionada.getElement() == Element.Type.LEAF
+                                    && pieza.getElement() != Element.Type.FIRE)) {
 
                                 piezaSeleccionada.mover(this, point);
                                 equipo2.remove(pieza);
                                 turno = 2;
                                 break;
                             }
-                        }
-                    }
-                    for (Piece pieza : powerUps) {
-                        if (pieza.getX() == piezaSeleccionada.getX() - 50
-                            && pieza.getY() == piezaSeleccionada.getY() - 50) {
-
-                            if (pieza.getX() == 200 && pieza.getY() == 250){
-                                piezaSeleccionada.hacerDama();
-                            }
-
-                            piezaSeleccionada.mover(this, point);
-                            powerUps.remove(pieza);
-                            turno = 2;
-                            break;
-
                         }
                     }
                 } else if ((pto.x == piezaSeleccionada.getX() + 100 && pto.y == piezaSeleccionada.getY() + 100)) {
@@ -133,20 +120,6 @@ public class Board implements Context {
 
                         }
                     }
-
-                    for (Piece pieza : powerUps) {
-                        if (pieza.getX() == piezaSeleccionada.getX() + 50
-                            && pieza.getY() == piezaSeleccionada.getY() + 50) {
-
-                            if (pieza.getX() == 200 && pieza.getY() == 250){
-                                piezaSeleccionada.hacerDama();
-                            }
-
-                            piezaSeleccionada.mover(this, point);
-                            powerUps.remove(pieza);
-                            turno = 2;
-                        }
-                    }
                 } else if ((pto.x == piezaSeleccionada.getX() - 100 && pto.y == piezaSeleccionada.getY() + 100)) {
 
                     for (Piece pieza : equipo2) {
@@ -174,20 +147,6 @@ public class Board implements Context {
                         }
                     }
 
-                    for (Piece pieza : powerUps) {
-                        if (pieza.getX() == piezaSeleccionada.getX() + 50
-                            && pieza.getY() == piezaSeleccionada.getY() + 50) {
-
-                            if (pieza.getX() == 200 && pieza.getY() == 250){
-                                piezaSeleccionada.hacerDama();
-                            }
-
-                            piezaSeleccionada.mover(this, point);
-                            powerUps.remove(pieza);
-                            turno = 2;
-                        }
-                    }
-
                 } else if ((pto.x == piezaSeleccionada.getX() + 100
                     && pto.y == piezaSeleccionada.getY() - 100)) {
 
@@ -208,20 +167,6 @@ public class Board implements Context {
                                 break;
                             }
 
-                        }
-                    }
-
-                    for (Piece pieza : powerUps) {
-                        if (pieza.getX() == piezaSeleccionada.getX() + 50
-                            && pieza.getY() == piezaSeleccionada.getY() - 50) {
-
-                            if (pieza.getX() == 200 && pieza.getY() == 250){
-                                piezaSeleccionada.hacerDama();
-                            }
-                            piezaSeleccionada.mover(this, point);
-                            powerUps.remove(pieza);
-                            turno = 2;
-                            break;
                         }
                     }
                 }
