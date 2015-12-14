@@ -17,7 +17,9 @@ public class PowerUps extends Piece implements Context {
         this.tipo = tipo;
     }
 
-
+      public String getTipo() {
+        return tipo;
+    }
 
     @Override
     public void update(MouseHandler mouseHandler) {
