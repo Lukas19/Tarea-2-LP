@@ -27,6 +27,7 @@ public class Board implements Context {
             equipo2.add(pieza);
         }
 
+
     }
 
     public void agregarPower(PowerUps power){
@@ -656,22 +657,22 @@ public class Board implements Context {
             } else {
                 if(powerUpSeleccionado.getTipo() == "Transforma") {
                     if(piezaSeleccionada.isTeam1()) {
-                        System.out.println(piezaSeleccionada.getColor());
-                        piezaSeleccionada.setColor(Color.GREEN);
+                        //System.out.println(piezaSeleccionada.getColor());
+                        //piezaSeleccionada.setColor(Color.GREEN);
                         piezaSeleccionada.setTeam1(false);
                         equipo2.add(piezaSeleccionada);
                         equipo1.remove(piezaSeleccionada);
                         pto = piezaSeleccionada.obtenerCuadro(this, point);
                         verificarJugada(pto);
                     } else if(equipo2.contains(piezaSeleccionada)) {
-                        piezaSeleccionada.setColor(Color.BLACK);
+                        //piezaSeleccionada.setColor(Color.BLACK);
                         equipo1.add(piezaSeleccionada);
                         equipo2.remove(piezaSeleccionada);
                         pto = piezaSeleccionada.obtenerCuadro(this, point);
                         verificarJugada(pto);
                     }
                 } else if(powerUpSeleccionado.getTipo() == "Obliga") {
-                    piezaSeleccionada.setColor(Color.ORANGE);
+                    //piezaSeleccionada.setColor(Color.ORANGE);
                     pto = piezaSeleccionada.obtenerCuadro(this,point);
                     while(loco) {
                         if (pto.x != piezaSeleccionada.getX()) {
@@ -735,10 +736,9 @@ public class Board implements Context {
             }
         }
 
-        for (Piece pieza : powerUps){
+        for (PowerUps pieza : powerUps){
             graphics.setColor(Color.YELLOW);
             graphics.fillOval(pieza.getX(), pieza.getY(), pieza.getWidth(), pieza.getHeight());
         }
-
     }
 }

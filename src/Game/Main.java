@@ -30,18 +30,19 @@ public class Main implements Context {
         pieza2 = new Piece(250,100, Element.Type.WATER);
         pieza3 = new Piece(50,500, Element.Type.FIRE);
         pieza4 = new Piece(150,500, Element.Type.LEAF);
-        powerUpsReina = new PowerUps(200,250,"Reina");
-        powerUpsObliga = new PowerUps(300,250,"Obliga");
-        powerUpsTransforma = new PowerUps(400,250,"Transforma");
+        powerUpsReina = new PowerUps(200,250,"Reina",Color.YELLOW);
+        powerUpsObliga = new PowerUps(300,250,"Obliga",Color.YELLOW);
+        powerUpsTransforma = new PowerUps(400,250,"Transforma",Color.YELLOW);
+        powerUpsAvanza = new PowerUps(100,250,"Avanza",Color.YELLOW);
         board.agregarCuadros();
         board.agregarPieza(pieza1,1);
         board.agregarPieza(pieza2,1);
         board.agregarPieza(pieza3,2);
         board.agregarPieza(pieza4,2);
-        board.agregarPieza(powerUpsReina,3);
-        board.agregarPieza(powerUpsObliga,3);
-        board.agregarPieza(powerUpsTransforma,3);
-        board.agregarPieza(powerUpsAvanza,3);
+        board.agregarPower(powerUpsReina);
+        board.agregarPower(powerUpsObliga);
+        board.agregarPower(powerUpsTransforma);
+        board.agregarPower(powerUpsAvanza);
     
         
     }
