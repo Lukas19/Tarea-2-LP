@@ -3,6 +3,7 @@
 PowerUps: Se implementarón como una pieza más con:
   -Color amarillo 
   -Al momento de comer dan la habilidad
+  -Se informa mediante terminal que habilidad obtuvo la pieza.
   
   Habilidades:
     -Avanzar 3 espacios: El jugador al obtener este poder podrá hacer uso de el 1 vez cuando el lo estime necesario.
