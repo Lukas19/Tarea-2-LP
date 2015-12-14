@@ -11,3 +11,4 @@ PowerUps: Se implementarón como una pieza más con:
     -Mover Atrás: El jugador al obtener este poder tendrá la habilidad permanente de hacerlo.
   
   
+Estrategia: Al ser un juego no habia otra alternativa que utiliar la orientacion a objetos. El problema se abordo utilizando los conocimientos de POO y observando el juego como una matriz.
