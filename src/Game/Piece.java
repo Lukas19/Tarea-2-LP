@@ -13,7 +13,10 @@ public class Piece {
     private int height = 50;
     private boolean esDama = false;
     private Element.Type elemento;
-
+    private boolean superAvance = false;
+    private boolean team1 = false;
+    
+    
     public Piece(int x,int y,Element.Type elemento) {
 
         this.x = x;
@@ -82,4 +85,18 @@ public class Piece {
     public void yaNoEsDama() {
         this.esDama = false;
     }
+    
+    public boolean isSuperAvance() { 
+          return superAvance; 
+    }
+
+    public void setSuperAvance(boolean superAvance) { 
+        this.superAvance = superAvance; 
+    }
+
+    public boolean isTeam1() { return team1; }
+
+    public void setTeam1(boolean team1) { this.team1 = team1; }
+    
+    
 }
