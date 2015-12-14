@@ -17,6 +17,7 @@ public class Main implements Context {
     PowerUps powerUpsReina;
     PowerUps powerUpsObliga;
     PowerUps powerUpsTransforma;
+    PowerUps powerUpsAvanza;
     Color colorEquipo1 = Color.BLACK;
     Color colorEquipo2 = Color.GREEN;
     Board board = new Board();
@@ -40,7 +41,9 @@ public class Main implements Context {
         board.agregarPieza(powerUpsReina,3);
         board.agregarPieza(powerUpsObliga,3);
         board.agregarPieza(powerUpsTransforma,3);
-
+        board.agregarPieza(powerUpsAvanza,3);
+    
+        
     }
 
 
